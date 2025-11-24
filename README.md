@@ -4,4 +4,4 @@ The source code and testing data are provided as a service to the scientific com
 
 As part of the license, please cite the paper below if you use the algorithms or results in your research:
 
-Jiang X, Cai Z, Gonsisko C, Worrell G, He B. Mapping epileptogenic brain using a unified spatial–temporal–spectral source imaging framework. Proc Natl Acad Sci U S A. 2025;122:e2510015122. doi:10.1073/pnas.2510015122
+Jiang X, Cai Z, Gonsisko C, Worrell G, He B. Mapping epileptogenic brain using a unified spatial–temporal–spectral source imaging framework. Proc Natl Acad Sci U S A. 2025;122:e2510015122. doi: [10.1073/pnas.2510015122](https://doi.org/10.1073/pnas.2510015122)
