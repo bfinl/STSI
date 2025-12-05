@@ -6,7 +6,7 @@ As part of the license, please cite the paper below if you use the algorithms or
 
 Jiang X, Cai Z, Gonsisko C, Worrell G, He B. Mapping epileptogenic brain using a unified spatial–temporal–spectral source imaging framework. Proc Natl Acad Sci U S A. 2025;122:e2510015122. doi:10.1073/pnas.2510015122
 
-
+This work was funded by the National Institutes of Health grants NS096761, NS127849, NS131069, NS124564, and EB029365 (B.H.).
 
 •	Software requirements
 The code provided is based on MATLAB, and mainly tested in Windows platform with MATLAB version 2024b. If problems occur when running the code, it is likely a compatibility issue, e.g. the operating system or the MATLAB version. 
