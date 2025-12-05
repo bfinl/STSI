@@ -17,12 +17,10 @@ Please ensure the following toolboxes are available in your MATLAB environment:
 •	Tensorlab: obtain from the official website: https://tensorlab.net/.
 •	EEGLAB: obtain from the official website: https://eeglab.org/download/.
 •	FieldTrip: obtain from the official website: https://www.fieldtriptoolbox.org/download/.
-To avoid potential issues, one can remove the path of other versions of these toolboxes from the MATLAB path. 
+To avoid potential issues, one can remove the path of other versions of these toolboxes from the MATLAB path. Please put Tensorlab, EEGLAB, and FieldTrip toolbox into the 'ToolBox_External' folder for the code to load.
 
 •	Setting up the path
-The startup_patient.m is the script to set up relevant paths. 
-All the codes are stored in the folder STSI_CodesAndNotes\STSI_Codes
-This code assumes the drive is E:\, if your drive is different, please edit the startup script: STSI_CodesAndNotes\STSI_Codes\Codes\startup_patient.m
+The startup_patient.m is the script to set up relevant paths. The current version assumes the working directory is E:\STSI_CodesAndNotes\STSI_Codes\, if your drive is different, please edit the startup script: ...\Codes\startup_patient.m
 And change the variable MainPath = 'E:\STSI_CodesAndNotes\STSI_Codes\' to your own directory.
 
 •	Explanation of the subfolders

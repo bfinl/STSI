@@ -1,1 +1,3 @@
 This is a placeholder file because Github does not allow empty folder.
+
+Please put Tensorlab, EEGLAB, and FieldTrip toolbox into this folder for the code to load.
