@@ -25,14 +25,14 @@ And change the variable MainPath = 'E:\STSI_CodesAndNotes\STSI_Codes\' to your o
 
 •	Explanation of the subfolders
 Codes: the example codes from one patient. The functions and code related to the algorithms are stored in Folder ‘RelevantFunctions’. 
-Area.m: the function to calculate triangle area.
-CortexViewInit.m: initialize the cortex viewing angle.
-norms.m: calculates the norm of a vector (or a set of vectors).
-	cvx_check_dimension.m: Verifies that the input is valid dimension, used as part of the function called ‘norms’.
-	cvx_default_dimension.m: Default dimension for SUM, MAX, etc, used as part of the function called ‘norms’.
-Find_Patch.m: find continuous source imaging results patches for display
-FISTA_ADMM_IRES_Tensor.m: the projection to hyperellipsoid method during iterative solving of STSI.
-trisurf_customized.m: display triangulated surface such as the cortex.
+- Area.m: the function to calculate triangle area.
+- CortexViewInit.m: initialize the cortex viewing angle.
+- norms.m: calculates the norm of a vector (or a set of vectors).
+- cvx_check_dimension.m: Verifies that the input is valid dimension, used as part of the function called ‘norms’.
+- cvx_default_dimension.m: Default dimension for SUM, MAX, etc, used as part of the function called ‘norms’.
+- Find_Patch.m: find continuous source imaging results patches for display
+- FISTA_ADMM_IRES_Tensor.m: the projection to hyperellipsoid method during iterative solving of STSI.
+- trisurf_customized.m: display triangulated surface such as the cortex.
 Figures: stores source imaging results figures
 Grid_Location_Parameters: stores the head model, including leadfield matrices, neighboring relationships, electrode positions, etc.
 Seizures: stores the seizure data, the data format is a N_channel by N_sample matrix.
