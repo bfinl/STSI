@@ -129,10 +129,8 @@ if(inputcase ==  4 )
     Spectrum = real(Spectrum);
 end
 
-
-  component_selected = [2,3,13,14];
-  freq_select = [44,46];
-
+component_selected = [2,3,13,14];
+freq_select = [44,46];
 
 
 Uhat_approx1 = Topo_ICA(:,component_selected); % spatial
@@ -207,7 +205,6 @@ J_abbas_2 = squeeze(reshape(J_abbas,[Number_dipole,1,Num_TBF]));
 % % number of J is equal to number of triangles
 J_abbas_1               = squeeze(norms(J_abbas,1));
 % %================%
-% J_abbas_1               = J_abbas_1.^2;%*var(TBF(:,:),[],2); % For this part can select a smaller time range
 J_abbas_1 = sum(J_abbas_1.^2,2);
 % %================%
 J_init_plot                  = (J_abbas_1);
@@ -322,10 +319,6 @@ for iter_TBF = 1:N_Spectral
     Smf      = 10^3; % smooth factor
     %======%
     J_ini    = (K_n.'*pinv(K_n*K_n.' + mean(diag(gam))*(Smf/SNR_avg)*eye(Number_sensor))*psi_n).*repmat(D_W',[1 Num_TBF]);
-    %J_ini = randn(size(J_ini))*norm(J_ini,1);
-   
-    
-    % FAST-IRES after alpha selection
     
     close all
     [Number_sensor,Number_Source] = size(Phi_noisy);
@@ -354,8 +347,8 @@ for iter_TBF = 1:N_Spectral
     ind_95 = find(Sum_X > 0.95); B(ind_95(1,1));
     ind_50 = find(Sum_X > 0.50); B(ind_50(1,1));
     
-    CF_min = beta/(norm(Phi_norm,'fro')^2/Number_Source); % norm(Phi_norm,'fro')^2/Number_Source = average power per time point 
-    % for noise power as noise might not be whitened enough
+    CF_min = beta/(norm(Phi_norm,'fro')^2/Number_Source); 
+
     %==============%
     CF     = max(beta/B(ind_50(1,1)),CF_min) ;
     %==============%
@@ -504,8 +497,6 @@ disp(['total time elapsed in hours: ' num2str(t_elaps/3600)]);
 
 J                       = squeeze(J_sol(:,:,end,1));
 Num_TBF                 = size(J,2);
-%J_T                     = J*TBF;
-%load('Phi_noisy.mat')
 
 J_abbas                 = reshape(J, [3, Number_dipole/3, Num_TBF]);
 % number of J is equal to number of triangles
@@ -548,7 +539,6 @@ Thr                     = 1/64;
 J_col(abs(J_col)<Thr*max(abs(J_col)))=0;
 IND                     = Find_Patch(Edge, 1, J_col);
 J_init                  = IND;
-
 
 J_seg = IND;
 J_abbas_2 = J_abbas_2.*IND;

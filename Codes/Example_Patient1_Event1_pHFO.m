@@ -198,7 +198,6 @@ J_abbas_2 = squeeze(reshape(J_abbas,[Number_dipole,1,Num_TBF]));
 % % number of J is equal to number of triangles
 J_abbas_1               = squeeze(norms(J_abbas,1));
 % %================%
-% J_abbas_1               = J_abbas_1.^2;%*var(TBF(:,:),[],2); 
 J_abbas_1 = sum(J_abbas_1.^2,2);
 % %================%
 J_init_plot                  = (J_abbas_1);
@@ -333,13 +332,11 @@ for iter_TBF = 1:N_Spectral
     [X,B] = hist(power,100);
  
     Sum_X = cumsum(X)/sum(X);
-    % figure; plot(Sum_X)
     ind_90 = find(Sum_X > 0.90); B(ind_90(1,1));
     ind_95 = find(Sum_X > 0.95); B(ind_95(1,1));
     ind_50 = find(Sum_X > 0.50); B(ind_50(1,1));
     
-    CF_min = beta/(norm(Phi_norm,'fro')^2/Number_Source); % norm(Phi_norm,'fro')^2/Number_Source = average power per time point 
-    % for noise power as noise might not be whitened enough
+    CF_min = beta/(norm(Phi_norm,'fro')^2/Number_Source); 
     %==============%
     CF     = max(beta/B(ind_50(1,1)),CF_min) ;
     %==============%

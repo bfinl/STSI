@@ -129,13 +129,9 @@ for r = 1:R
     fig1.Position = [100 100 1000 400];
     
     saveas(fig1,[num2str(r) '.jpg']);
-
-    % Use below for higher resolution
-    %exportgraphics(fig1,[num2str(r) '.jpg'],'Resolution',300);
 end
 
 %%
-%=====Reconstruct the spatialtemporal signal using certain components====%
 
 component_selected = [3];
 freq_select = [34];
@@ -172,7 +168,6 @@ Vertice_Location = curryloc;
 Number_edge = numel(V(:,1));
 
 % Select an extended source and display it on the cortex
-%  does not really have too much meaning
 CortexViewInit;
 
 figure
@@ -186,7 +181,6 @@ light_position = [-3 -3 -1];
 light('Position',light_position);
 colorbar;
 x_max = 1;
-%x_max = 0.05;
 caxis([-x_max x_max]);
 view([-1,0.25,0.15])
 grid off
@@ -206,7 +200,6 @@ J_abbas_2 = squeeze(reshape(J_abbas,[Number_dipole,1,Num_TBF]));
 % % number of J is equal to number of triangles
 J_abbas_1               = squeeze(norms(J_abbas,1));
 % %================%
-% J_abbas_1               = J_abbas_1.^2;%*var(TBF(:,:),[],2); % For this part can select a smaller time range
 J_abbas_1 = sum(J_abbas_1.^2,2);
 % %================%
 J_init_plot                  = (J_abbas_1);
@@ -232,9 +225,6 @@ grid off
 axis off
 %colorbar('off')
 colormap(cmap)
-
-%
-
 
 Uhat_J_ini = J_abbas_2;
 sum0 = sum(Uhat_J_ini,2);
@@ -285,7 +275,6 @@ for iter_TBF = 1:N_Spectral
     
     % Estimating Noise and Initializing
     
-
     N_wht                  = Phi_noisy - Phi_noisy*TBF.'*pinv(TBF*TBF.')*TBF;
     Noise_only             = Phi_noisy(:,Noise_st:Noise_end);
     SNR_unused             = norm(Phi_noisy,'fro')^2/norm(Noise_only,'fro')^2; % a SNR that is not used
@@ -342,8 +331,7 @@ for iter_TBF = 1:N_Spectral
     ind_95 = find(Sum_X > 0.95); B(ind_95(1,1));
     ind_50 = find(Sum_X > 0.50); B(ind_50(1,1));
     ind_30 = find(Sum_X > 0.30); B(ind_30(1,1));
-    CF_min = beta/(norm(Phi_norm,'fro')^2/Number_Source); % norm(Phi_norm,'fro')^2/Number_Source = average power per time point 
-    % for noise power as noise might not be whitened enough
+    CF_min = beta/(norm(Phi_norm,'fro')^2/Number_Source); 
     %==============%
     CF     = max(beta/B(ind_30(1,1)),CF_min) ;
     %==============%
@@ -495,73 +483,70 @@ t_elaps = toc(t1);
 disp(['total time elapsed in hours: ' num2str(t_elaps/3600)]);
 
 
+J                       = squeeze(J_sol(:,:,end,1));
+Num_TBF                 = size(J,2);
 
 
+J_abbas                 = reshape(J, [3, Number_dipole/3, Num_TBF]);
+% number of J is equal to number of triangles
+J_abbas_1               = squeeze(norms(J_abbas,1));
+%================%
 
-    J                       = squeeze(J_sol(:,:,end,1));
-    Num_TBF                 = size(J,2);
+J_abbas_2               = J_abbas_1.^2*sum(squeeze(var(TBF_tensor(),[],2)),2);
+J_abbas_2 = J_abbas_2(:);
+%================%
 
-    
-    J_abbas                 = reshape(J, [3, Number_dipole/3, Num_TBF]);
-    % number of J is equal to number of triangles
-    J_abbas_1               = squeeze(norms(J_abbas,1));
-    %================%
-  
-    J_abbas_2               = J_abbas_1.^2*sum(squeeze(var(TBF_tensor(),[],2)),2);
-    J_abbas_2 = J_abbas_2(:);
-    %================%
-  
-    J_init                  = (J_abbas_2);
-    
-    figure
-    h1 = trisurf_customized(TRI,Vertice_Location(1,:),Vertice_Location(2,:),Vertice_Location(3,:),(J_init)); colorbar;
-    set(h1,'EdgeColor','None', 'FaceAlpha',1,'FaceLighting','phong');
-    hold on
-    hold off
-    light_position = [3 3 1];
-    light('Position',light_position);
-    light_position = [-3 -3 -1];
-    light('Position',light_position);
-    colorbar;
-    x_max = max(sum(abs(J_init),2));
-    if(size(J_init,1) == 1)
-        x_max = max(abs(J_init));
-    end
-    %x_max = 0.05;
-    caxis([-x_max x_max]);
-   view(232,-5)
-    grid off
-    axis off
-    %colorbar('off')
-    colormap(cmap)
-    
-    % Now instead of plotting the whole J distribution, we find clusters (patches)
-    % of J that has magnitude corssing a threshold
-      
-    J_col                   = J_abbas_2;
-    %================%
-    Thr                     = 1/64;
-    %================%
-    J_col(abs(J_col)<Thr*max(abs(J_col)))=0;
-    IND                     = Find_Patch(Edge, 1, J_col);
-    J_init                  = IND;
+J_init                  = (J_abbas_2);
 
-    J_abbas_2 = J_abbas_2.*IND;
+figure
+h1 = trisurf_customized(TRI,Vertice_Location(1,:),Vertice_Location(2,:),Vertice_Location(3,:),(J_init)); colorbar;
+set(h1,'EdgeColor','None', 'FaceAlpha',1,'FaceLighting','phong');
+hold on
+hold off
+light_position = [3 3 1];
+light('Position',light_position);
+light_position = [-3 -3 -1];
+light('Position',light_position);
+colorbar;
+x_max = max(sum(abs(J_init),2));
+if(size(J_init,1) == 1)
+    x_max = max(abs(J_init));
+end
+%x_max = 0.05;
+caxis([-x_max x_max]);
+view(232,-5)
+grid off
+axis off
+%colorbar('off')
+colormap(cmap)
 
-  
-    figure
-    h1 = trisurf_customized(TRI,Vertice_Location(1,:),Vertice_Location(2,:),Vertice_Location(3,:),(J_abbas_2));
-    colorbar;
-    set(h1,'EdgeColor','None', 'FaceAlpha',1,'FaceLighting','phong');
-    light_position = [3 3 1];
-    light('Position',light_position);
-    light_position = [-3 -3 -1];
-    light('Position',light_position);
-    colorbar;
-    x_max                   = max(sum(abs(J_abbas_2),2));
-    caxis([-x_max x_max]);
-   view(232,-5)
-    grid off
-    axis on
-    colormap(cmap)
+% Now instead of plotting the whole J distribution, we find clusters (patches)
+% of J that has magnitude corssing a threshold
+
+J_col                   = J_abbas_2;
+%================%
+Thr                     = 1/64;
+%================%
+J_col(abs(J_col)<Thr*max(abs(J_col)))=0;
+IND                     = Find_Patch(Edge, 1, J_col);
+J_init                  = IND;
+
+J_abbas_2 = J_abbas_2.*IND;
+
+
+figure
+h1 = trisurf_customized(TRI,Vertice_Location(1,:),Vertice_Location(2,:),Vertice_Location(3,:),(J_abbas_2));
+colorbar;
+set(h1,'EdgeColor','None', 'FaceAlpha',1,'FaceLighting','phong');
+light_position = [3 3 1];
+light('Position',light_position);
+light_position = [-3 -3 -1];
+light('Position',light_position);
+colorbar;
+x_max                   = max(sum(abs(J_abbas_2),2));
+caxis([-x_max x_max]);
+view(232,-5)
+grid off
+axis on
+colormap(cmap)
 
