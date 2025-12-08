@@ -20,8 +20,11 @@ Please ensure the following toolboxes are available in your MATLAB environment:
 To avoid potential issues, one can remove the path of other versions of these toolboxes from the MATLAB path. Please put Tensorlab, EEGLAB, and FieldTrip toolbox into the 'ToolBox_External' folder for the code to load.
 
 •	Setting up the path
-The startup_patient.m is the script to set up relevant paths. The current version assumes the working directory is E:\STSI_CodesAndNotes\STSI_Codes\, if your drive is different, please edit the startup script: ...\Codes\startup_patient.m
-And change the variable MainPath = 'E:\STSI_CodesAndNotes\STSI_Codes\' to your own directory.
+The file '...\Codes\startup_patient.m' is the script to set up relevant paths. 
+
+Important note: Please open this file and and change the variable MainPath = 'E:\STSI_CodesAndNotes\STSI_Codes\' to the directory where this repository is stored.
+
+For example, if everything is saved in a folder with path 'D:\STSI-main\', then please change the variable MainPath = 'D:\STSI-main\'
 
 •	Explanation of the subfolders
 Codes: the example codes from one patient. The functions and code related to the algorithms are stored in Folder ‘RelevantFunctions’. 
@@ -40,11 +43,11 @@ Spikes: stores the HFO riding spike data, the data format is a N_channel by N_sa
 
 •	How to run the code
 HFO source imaging, navigate to:
-STSI_CodesAndNotes\STSI_Codes\Codes\ Example_Patient1_Event1_pHFO.m. 
+...\Codes\Example_Patient1_Event1_pHFO.m. 
 Spike source imaging:
-STSI_CodesAndNotes\STSI_Codes\Codes\ Example_Patient1_Event1_pSpike.m
+...\Codes\Example_Patient1_Event1_pSpike.m
 Seizure source imaging: 
-STSI_CodesAndNotes\STSI_Codes\Codes\ Example_Patient1_Seizure1.m
+...\Codes\Example_Patient1_Seizure1.m
 
 Each code should be click-and run, the results will be Figures showing the source imaging results.
 
